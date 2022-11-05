@@ -1,5 +1,5 @@
 out/
 .idea/
-
+src/test/
 
 src/main/java/Main/Token.java

@@ -29,8 +29,6 @@ public class Bot {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println(Math.sqrt(Math.pow(11.12,2) + Math.pow(8.88,2)));
-
         JDABuilder builder = JDABuilder.createDefault(Token.token);
 
         builder.disableCache(CacheFlag.MEMBER_OVERRIDES);
