@@ -1,5 +1,7 @@
 out/
 .idea/
 src/test/
+out/artifacts/DiscordBot_jar/
+
 
 src/main/java/Main/Token.java
