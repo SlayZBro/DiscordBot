@@ -31,7 +31,7 @@ public class Bot {
 
         System.out.println(Math.sqrt(Math.pow(11.12,2) + Math.pow(8.88,2)));
 
-        JDABuilder builder = JDABuilder.createDefault("NTkzMDgwMjIyMDMxNTQ0MzIx.GqH9hp.7R0DsQmqK3YhMO8tew5xk7oRqOxAnyK8PaO2P4");
+        JDABuilder builder = JDABuilder.createDefault(Token.token);
 
         builder.disableCache(CacheFlag.MEMBER_OVERRIDES);
         builder.setBulkDeleteSplittingEnabled(false);
