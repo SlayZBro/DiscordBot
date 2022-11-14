@@ -76,7 +76,6 @@
       <element id="library" level="project" name="Maven: net.iharder:base64:2.3.9" />
       <element id="library" level="project" name="Maven: net.java.dev.jna:jna:4.4.0" />
       <element id="library" level="project" name="Maven: net.sf.trove4j:trove4j:3.0.3" />
-      <element id="library" level="project" name="Maven: net.dv8tion:JDA:5.0.0-alpha.12" />
       <element id="library" level="project" name="Maven: org.apache.httpcomponents.client5:httpclient5-cache:5.1.1" />
       <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.4" />
       <element id="library" level="project" name="Maven: org.apache.httpcomponents.core5:httpcore5:5.1.2" />
@@ -85,11 +84,12 @@
       <element id="library" level="project" name="Maven: org.apache.httpcomponents.core5:httpcore5-h2:5.1.2" />
       <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.0" />
       <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.12" />
-      <element id="library" level="project" name="Maven: org.jetbrains:annotations:23.0.0" />
       <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.4.10" />
       <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.36" />
       <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.12.1" />
       <element id="library" level="project" name="Maven: se.michaelthelin.spotify:spotify-web-api-java:7.0.0" />
+      <element id="library" level="project" name="Maven: net.dv8tion:JDA:5.0.0-alpha.22" />
+      <element id="library" level="project" name="Maven: org.jetbrains:annotations:13.0" />
     </root>
   </artifact>
 </component>

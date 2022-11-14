@@ -1,5 +1,6 @@
 package Main.lavaplayer;
 
+import Main.commands.music.MessageManager;
 import Main.commands.music.Play;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
@@ -8,6 +9,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.managers.AudioManager;
 
@@ -35,19 +37,20 @@ public class TrackScheduler extends AudioEventAdapter {
     public void nextTrack(AudioManager manager){
         TextChannel textChannel = null;
 
-        if(Play.message != null){
-            textChannel = Play.message.getChannel().asTextChannel();
-            Play.message.delete().queue();
-            Play.message = null;
-        }
 
         if(queue.size() == 0 ){
 
             player.stopTrack();
             manager.closeAudioConnection();
 
+            if(MessageManager.message != null){
+                MessageManager.message.delete().queue();
+                MessageManager.message = null;
+            }
+
             return;
         }
+
         this.player.startTrack(this.queue.poll(),false);
         if(textChannel != null){
             Play.message = textChannel.sendMessage("Now Playing: `" + player.getPlayingTrack().getInfo().title + "`")
@@ -60,6 +63,9 @@ public class TrackScheduler extends AudioEventAdapter {
                     .complete();
 
         }
+
+        MessageManager.updateMessage(manager.getGuild());
+
 
 
 

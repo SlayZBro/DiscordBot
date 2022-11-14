@@ -6,6 +6,7 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.*;
 
@@ -59,8 +60,9 @@ public class Play extends ListenerAdapter {
             String input = e.getMessage().getContentRaw().replace("#play ","");
 
             if(e.getChannelType().isMessage()) {
-                if (play(input, e.getMember(), (TextChannel) e.getChannel(), e.getGuild())) {
-                    sendMessage( e.getChannel().asTextChannel(), e.getGuild());
+                if (play(input, e.getMember(), e.getChannel().asTextChannel(), e.getGuild())) {
+                    AudioPlayer player = PlayerManager.getInstance().getMusicManager(e.getGuild()).player;
+                    MessageManager.sendMessage(e.getChannel().asTextChannel(), player);
                     e.getMessage().delete().queue();
                 }
             }
@@ -83,7 +85,11 @@ public class Play extends ListenerAdapter {
 
                 if(message == null) {
                     e.deferReply().queue();
-                    sendMessage(e.getHook(), e.getGuild());
+                    e.getHook().deleteOriginal().queue();
+
+                    AudioPlayer player = PlayerManager.getInstance().getMusicManager(e.getGuild()).player;
+
+                    MessageManager.sendMessage(e.getChannel().asTextChannel(),player);
                 }
                 else{
                     e.reply("Your song has been added to the queue").setEphemeral(true).queue();
@@ -92,58 +98,7 @@ public class Play extends ListenerAdapter {
         }
     }
 
-    private static void sendingMessage(TextChannel channel, InteractionHook interactionHook, Guild g){
-        if(message != null){
-            message.delete().queue();
-            message = null;
-        }
 
-        if(message == null) {
-
-            AudioTrack track = PlayerManager.getInstance().getMusicManager(g).player.getPlayingTrack();
-            GuildMusicManager manager = PlayerManager.getInstance().getMusicManager(g);
-
-            while (track == null) {
-                try {
-                    TimeUnit.SECONDS.sleep(2);
-                    track = PlayerManager.getInstance().getMusicManager(g).player.getPlayingTrack();
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-            if(interactionHook != null) {
-                message = interactionHook.sendMessage("Now Playing: `" + track.getInfo().title + "`   (Volume: "+manager.player.getVolume()+")")
-                        .addActionRow(
-                                manager.player.isPaused() ? Button.primary("resume", " ").withEmoji(Emoji.fromUnicode("U+25B6")) :
-                                        Button.primary("pause", " ").withEmoji(Emoji.fromUnicode("U+23F8"))
-                                , Button.primary("skip", " ").withEmoji(Emoji.fromUnicode("U+23E9"))
-                                , Button.primary("queue", "Queue")
-                                , Button.primary("repeat", " ").withEmoji(manager
-                                        .scheduler.replay ? Emoji.fromUnicode("U+1F502") : Emoji.fromUnicode("U+1F501"))
-                                , Button.link(track.getInfo().uri, " ").withEmoji(Emoji.fromCustom("YouTube",892003898733264947L,false))).complete();
-            }else{
-                message = channel.sendMessage("Now Playing: `" + track.getInfo().title + "`   (Volume: "+manager.player.getVolume()+")")
-                        .setActionRow(
-                                PlayerManager.getInstance().getMusicManager(g).player.isPaused() ? Button.primary("resume", " ").withEmoji(Emoji.fromUnicode("U+25B6")) :
-                                        Button.primary("pause", " ").withEmoji(Emoji.fromUnicode("U+23F8"))
-                                , Button.primary("skip", " ").withEmoji(Emoji.fromUnicode("U+23E9"))
-                                , Button.primary("queue", "Queue")
-                                , Button.primary("repeat", " ").withEmoji(PlayerManager.getInstance().getMusicManager(g)
-                                        .scheduler.replay ? Emoji.fromUnicode("U+1F502") : Emoji.fromUnicode("U+1F501"))
-                                , Button.link(track.getInfo().uri, " ").withEmoji(Emoji.fromCustom("YouTube",892003898733264947L,false))).complete();
-            }
-        }
-
-
-    }
-
-    public static void sendMessage(InteractionHook hook, Guild g){
-        sendingMessage(null, hook, g);
-    }
-    public static void sendMessage(TextChannel channel, Guild g){
-        sendingMessage(channel, null, g);
-    }
 
 
 

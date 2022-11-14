@@ -2,6 +2,7 @@ package Main.events;
 
 import Main.commands.music.*;
 import Main.lavaplayer.PlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -24,30 +25,37 @@ public class ButtonPressed extends ListenerAdapter {
 
                 Skip.Skip(e.getGuild());
                 if (PlayerManager.getInstance().getMusicManager(e.getGuild()).scheduler.queue.size() != 0) {
-                    e.deferReply().queue();
 
-                    Play.sendMessage(e.getHook(), e.getGuild());
+                    e.deferReply().queue();
+                    e.getHook().deleteOriginal().queue();
+
+
                 }
                 return;
 
 
             } else if (e.getButton().getId().equals("pause")) {
                 e.deferReply().queue();
+                e.getHook().deleteOriginal().queue();
                 Pause.pause(e.getGuild());
-                Play.sendMessage(e.getHook(), e.getGuild());
+                MessageManager.updateMessage(e.getGuild());
                 return;
             } else if (e.getButton().getId().equals("resume")) {
                 e.deferReply().queue();
+                e.getHook().deleteOriginal().queue();
+
 
                 Resume.resume(e.getGuild());
-                Play.sendMessage(e.getHook(), e.getGuild());
+                MessageManager.updateMessage(e.getGuild());
                 return;
             }
 
             else if(e.getButton().getId().equals("repeat")){
                 e.deferReply().queue();
+                e.getHook().deleteOriginal().queue();
+
                 Replay.repeat(e.getGuild());
-                Play.sendMessage(e.getHook(), e.getGuild());
+                MessageManager.updateMessage(e.getGuild());
                 return;
             }
 
@@ -55,6 +63,7 @@ public class ButtonPressed extends ListenerAdapter {
 
         if(e.getButton().getId().equals("queue")){
             e.deferReply().queue();
+
             Queue.queue(e.getChannel().asTextChannel(), e.getHook());
         }
 
