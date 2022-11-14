@@ -30,11 +30,18 @@ public class MessageManager {
                     ex.printStackTrace();
                 }
             }
-            message = channel.sendMessage("Now Playing: `" + track.getInfo().title + "`")
+
+
+            StringBuilder builder = new StringBuilder("Now Playing: `" + track.getInfo().title + "`\n");
+            long current = track.getPosition();
+            long duration = track.getDuration();
+            builder.append("`["+timeFormat(current)+"/"+timeFormat(duration)+"]`");
+
+            message = channel.sendMessage(builder)
                     .setActionRow(getButtons(channel.getGuild(), track)).complete();
         }
 
-    }
+    }  
 
 
     public static void updateMessage(Guild g){
@@ -44,7 +51,9 @@ public class MessageManager {
             AudioTrack track = getTrack(g);
 
             message.delete().queueAfter(400,TimeUnit.MILLISECONDS);
-            message = message.reply("Now Playing: `" + track.getInfo().title + "`")
+            StringBuilder builder = new StringBuilder("Now Playing: `" + track.getInfo().title + "`\n");
+
+            message = message.reply(builder)
                     .setActionRow(getButtons(g, track)).complete();
 
 
@@ -81,6 +90,17 @@ public class MessageManager {
 
         return track;
 
+    }
+
+    private static String timeFormat(long time){
+        time /= 1000;
+        String a = "";
+
+        a += (time/60 < 10) ? "0"+(time/60) : time/60;
+        a += ":";
+        a += (time%60 < 10) ? "0"+(time%60) : time%60;
+
+        return a;
     }
 
 

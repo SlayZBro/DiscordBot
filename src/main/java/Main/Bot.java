@@ -6,19 +6,14 @@ import Main.commands.Tluna;
 import Main.commands.music.*;
 import Main.commands.shutdown;
 import Main.events.ButtonPressed;
-import Main.events.MessageSent;
 import Main.events.ModalInteraction;
 import Main.events.onReady;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 
-import net.dv8tion.jda.api.interactions.DiscordLocale;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.*;
-import net.dv8tion.jda.api.interactions.commands.localization.LocalizationFunction;
-import net.dv8tion.jda.api.interactions.commands.localization.ResourceBundleLocalizationFunction;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.Compression;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -64,7 +59,6 @@ public class Bot {
         jda.addEventListener(new Test());
 
 
-        jda.addEventListener(new MessageSent());
         jda.addEventListener(new onReady());
         System.out.println("Bot loaded");
         jda.upsertCommand("play", "Song name or URL").addOption(OptionType.STRING,"song","Song name or URL").queue();
