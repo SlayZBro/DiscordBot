@@ -60,8 +60,6 @@ public class Bot {
 
 
         jda.addEventListener(new onReady());
-        System.out.println("Bot loaded");
-        jda.upsertCommand("play", "Song name or URL").addOption(OptionType.STRING,"song","Song name or URL").queue();
         jda.upsertCommand("skip", "Skipping the current track").queue();
         jda.upsertCommand("replay", "replaying the current track").queue();
         jda.upsertCommand("pause", "Pauses the playing track").queue();
@@ -72,8 +70,9 @@ public class Bot {
                 new OptionData(OptionType.STRING,"reason","למה?")).queue();
 
 
+        Commands.slash("play","Song name or URL").addOption(OptionType.STRING,"song","Song name or URL");
 
-
+        System.out.println("Bot loaded");
 
 
     }

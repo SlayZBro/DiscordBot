@@ -4,9 +4,11 @@ import Main.commands.music.*;
 import Main.lavaplayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 import net.dv8tion.jda.api.interactions.components.text.TextInput;
 import net.dv8tion.jda.api.interactions.components.text.TextInputStyle;
@@ -97,6 +99,9 @@ public class ButtonPressed extends ListenerAdapter {
                 .setRequiredRange(20,300)
                 .setRequired(true)
                 .build();
+
+        net.dv8tion.jda.api.interactions.components.buttons.Button.primary("test","test");
+
 
 
 

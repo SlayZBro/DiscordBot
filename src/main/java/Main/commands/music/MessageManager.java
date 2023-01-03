@@ -37,11 +37,13 @@ public class MessageManager {
             long duration = track.getDuration();
             builder.append("`["+timeFormat(current)+"/"+timeFormat(duration)+"]`");
 
+
+
             message = channel.sendMessage(builder)
                     .setActionRow(getButtons(channel.getGuild(), track)).complete();
         }
 
-    }  
+    }
 
 
     public static void updateMessage(Guild g){
