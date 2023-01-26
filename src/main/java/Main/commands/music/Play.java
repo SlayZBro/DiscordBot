@@ -62,7 +62,9 @@ public class Play extends ListenerAdapter {
             if(e.getChannelType().isMessage()) {
                 if (play(input, e.getMember(), e.getChannel().asTextChannel(), e.getGuild())) {
                     AudioPlayer player = PlayerManager.getInstance().getMusicManager(e.getGuild()).player;
+
                     MessageManager.sendMessage(e.getChannel().asTextChannel(), player);
+
                     e.getMessage().delete().queue();
                 }
             }
@@ -90,6 +92,8 @@ public class Play extends ListenerAdapter {
                     AudioPlayer player = PlayerManager.getInstance().getMusicManager(e.getGuild()).player;
 
                     MessageManager.sendMessage(e.getChannel().asTextChannel(),player);
+
+
                 }
                 else{
                     e.reply("Your song has been added to the queue").setEphemeral(true).queue();

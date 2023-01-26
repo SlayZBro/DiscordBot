@@ -7,6 +7,10 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 public class Resume extends ListenerAdapter {
 
 
@@ -28,8 +32,14 @@ public class Resume extends ListenerAdapter {
     public static void resume(Guild g) {
         if(Play.audioManager.isConnected()) {
             AudioPlayer player = PlayerManager.getInstance().getMusicManager(g).player;
-            if (player.isPaused())
+            if (player.isPaused()) {
                 player.setPaused(false);
+                if(MessageManager.scheduler.isShutdown()){
+                    MessageManager.scheduler = Executors.newScheduledThreadPool(1);
+                }
+                MessageManager.scheduler.scheduleAtFixedRate(new MessageThread(player.getPlayingTrack()), 0,1,TimeUnit.SECONDS);
+
+            }
         }
 
     }

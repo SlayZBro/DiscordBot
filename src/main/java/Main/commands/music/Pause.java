@@ -27,8 +27,11 @@ public class Pause extends ListenerAdapter {
     public static void pause(Guild g){
         if(Play.audioManager.isConnected()) {
             AudioPlayer player = PlayerManager.getInstance().getMusicManager(g).player;
-            if (!player.isPaused())
+            if (!player.isPaused()) {
                 player.setPaused(true);
+                MessageManager.scheduler.shutdown();
+
+            }
         }
     }
 }

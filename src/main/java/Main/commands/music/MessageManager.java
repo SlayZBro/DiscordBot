@@ -12,14 +12,18 @@ import net.dv8tion.jda.api.interactions.InteractionHook;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class MessageManager {
 
     public static Message message = null;
+    public static  ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);;
 
 
-    public static void sendMessage(TextChannel channel, AudioPlayer player){
+
+    public static void sendMessage(TextChannel channel, AudioPlayer player) {
         if(message == null) {
             AudioTrack track = player.getPlayingTrack();
             while (track == null) {
@@ -31,17 +35,35 @@ public class MessageManager {
                 }
             }
 
-
-            StringBuilder builder = new StringBuilder("Now Playing: `" + track.getInfo().title + "`\n");
-            long current = track.getPosition();
-            long duration = track.getDuration();
-            builder.append("`["+timeFormat(current)+"/"+timeFormat(duration)+"]`");
-
-
-
-            message = channel.sendMessage(builder)
+            StringBuilder messageBuilder = getMessage(track);
+            message = channel.sendMessage(messageBuilder)
                     .setActionRow(getButtons(channel.getGuild(), track)).complete();
+
+
+            scheduler.scheduleAtFixedRate(new MessageThread(track), 0, 1, TimeUnit.SECONDS);
         }
+
+    }
+
+
+    public static StringBuilder getMessage(AudioTrack track){
+        //🔴-------------------|
+        StringBuilder builder = new StringBuilder("Now Playing: `" + track.getInfo().title + "`\n");
+        long current = track.getPosition()/1000;
+        long duration = track.getDuration()/1000;
+        builder.append("`["+timeFormat(current)+"/"+timeFormat(duration)+"]`\n");
+        builder.append("|");
+        for(long i=0; i<current*20/duration; i++){
+            builder.append("-");
+        }
+        builder.append("🔴");
+
+        for(long i = current*20/duration; i<20; i++){
+            builder.append("-");
+        }
+        builder.append("|");
+
+        return builder;
 
     }
 
@@ -53,7 +75,7 @@ public class MessageManager {
             AudioTrack track = getTrack(g);
 
             message.delete().queueAfter(400,TimeUnit.MILLISECONDS);
-            StringBuilder builder = new StringBuilder("Now Playing: `" + track.getInfo().title + "`\n");
+            StringBuilder builder = getMessage(track);
 
             message = message.reply(builder)
                     .setActionRow(getButtons(g, track)).complete();
@@ -61,6 +83,9 @@ public class MessageManager {
 
         }
     }
+
+
+
 
 
     private static ArrayList<Button> getButtons(Guild g, AudioTrack track){
@@ -95,7 +120,6 @@ public class MessageManager {
     }
 
     private static String timeFormat(long time){
-        time /= 1000;
         String a = "";
 
         a += (time/60 < 10) ? "0"+(time/60) : time/60;

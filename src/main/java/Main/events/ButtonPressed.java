@@ -45,8 +45,6 @@ public class ButtonPressed extends ListenerAdapter {
             } else if (e.getButton().getId().equals("resume")) {
                 e.deferReply().queue();
                 e.getHook().deleteOriginal().queue();
-
-
                 Resume.resume(e.getGuild());
                 MessageManager.updateMessage(e.getGuild());
                 return;
