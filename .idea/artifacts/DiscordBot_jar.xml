@@ -90,6 +90,7 @@
       <element id="library" level="project" name="Maven: se.michaelthelin.spotify:spotify-web-api-java:7.0.0" />
       <element id="library" level="project" name="Maven: net.dv8tion:JDA:5.0.0-alpha.22" />
       <element id="library" level="project" name="Maven: org.jetbrains:annotations:13.0" />
+      <element id="library" level="project" name="Maven: net.dv8tion:JDA:5.0.0-beta.1" />
     </root>
   </artifact>
 </component>

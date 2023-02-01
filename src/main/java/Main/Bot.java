@@ -7,6 +7,7 @@ import Main.commands.music.*;
 import Main.commands.shutdown;
 import Main.events.ButtonPressed;
 import Main.events.ModalInteraction;
+import Main.events.onJoin;
 import Main.events.onReady;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -62,6 +63,7 @@ public class Bot {
         jda.addEventListener(new Tluna());
         jda.addEventListener(new Test());
 
+        jda.addEventListener(new onJoin());
 
         jda.addEventListener(new onReady());
         jda.upsertCommand("skip", "Skipping the current track").queue();
@@ -76,7 +78,7 @@ public class Bot {
 
         Commands.slash("play","Song name or URL").addOption(OptionType.STRING,"song","Song name or URL");
 
-        System.out.println("Bot loaded");
+        System.out.println("Bot loaded test");
 
     }
 
