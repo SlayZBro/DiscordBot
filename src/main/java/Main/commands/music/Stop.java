@@ -24,6 +24,8 @@ public class Stop extends ListenerAdapter {
                 GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(e.getGuild());
                 musicManager.player.stopTrack();
                 musicManager.scheduler.queue.clear();
+                MessageManager.message.delete().queue();
+                MessageManager.message = null;
                 Play.audioManager.closeAudioConnection();
             }
         }

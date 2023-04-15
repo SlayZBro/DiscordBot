@@ -21,7 +21,16 @@ public class ButtonPressed extends ListenerAdapter {
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent e) {
 
+        if(e.getMember().getId().equals("915182298901643265")){
+            e.deferReply().queue();
+            e.getHook().deleteOriginal().queue();
+            return;
+
+        }
+
         if(Play.audioManager != null && Play.audioManager.getConnectedChannel().getMembers().contains(e.getMember())) {
+
+
 
             if (e.getButton().getId().equals("skip")) {
 

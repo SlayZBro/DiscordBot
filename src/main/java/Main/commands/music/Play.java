@@ -33,7 +33,6 @@ public class Play extends ListenerAdapter {
     private static YouTube youTube;
     public static AudioManager audioManager;
 
-    public static Message message;
 
     public Play() {
         YouTube temp = null;
@@ -85,7 +84,7 @@ public class Play extends ListenerAdapter {
             if(play(input,e.getMember(), (TextChannel) e.getChannel(),e.getGuild()) ){
 
 
-                if(message == null) {
+                if(MessageManager.message == null) {
                     e.deferReply().queue();
                     e.getHook().deleteOriginal().queue();
 

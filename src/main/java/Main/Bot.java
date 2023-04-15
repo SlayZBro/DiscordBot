@@ -9,6 +9,7 @@ import Main.events.ButtonPressed;
 import Main.events.ModalInteraction;
 import Main.events.onJoin;
 import Main.events.onReady;
+
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -20,16 +21,12 @@ import net.dv8tion.jda.api.utils.Compression;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Bot {
     public static JDA jda;
 
     public static void main(String[] args) throws Exception {
-
-        JDABuilder builder = JDABuilder.createDefault(Token.token);
+        JDABuilder builder = JDABuilder.createDefault(Token.TOKEN);
 
         builder.disableCache(CacheFlag.MEMBER_OVERRIDES);
         builder.setBulkDeleteSplittingEnabled(false);
@@ -78,7 +75,13 @@ public class Bot {
 
         Commands.slash("play","Song name or URL").addOption(OptionType.STRING,"song","Song name or URL");
 
-        System.out.println("Bot loaded test");
+       
+
+
+        System.out.println("Bot loaded");
+
+
+
 
     }
 

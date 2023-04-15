@@ -1,6 +1,7 @@
 package Main.lavaplayer;
 
 import Main.commands.music.MessageManager;
+import Main.commands.music.MessageThread;
 import Main.commands.music.Play;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
@@ -16,6 +17,7 @@ import net.dv8tion.jda.api.managers.AudioManager;
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 public class TrackScheduler extends AudioEventAdapter {
 
@@ -39,7 +41,6 @@ public class TrackScheduler extends AudioEventAdapter {
 
 
         if(queue.size() == 0 ){
-
             player.stopTrack();
             manager.closeAudioConnection();
 
@@ -52,8 +53,9 @@ public class TrackScheduler extends AudioEventAdapter {
         }
 
         this.player.startTrack(this.queue.poll(),false);
+
         if(textChannel != null){
-            Play.message = textChannel.sendMessage("Now Playing: `" + player.getPlayingTrack().getInfo().title + "`")
+            MessageManager.message = textChannel.sendMessage("Now Playing: `" + player.getPlayingTrack().getInfo().title + "`")
                     .setActionRow(PlayerManager.getInstance().getMusicManager(
                             manager.getGuild()).player.isPaused() ? Button.primary("resume", " ").withEmoji(Emoji.fromUnicode("U+25B6")) :
                                     Button.primary("pause", " ").withEmoji(Emoji.fromUnicode("U+23F8"))
@@ -76,6 +78,8 @@ public class TrackScheduler extends AudioEventAdapter {
     @Override
     public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
         if(endReason.mayStartNext){
+
+
             if(replay){
                 this.player.startTrack(track.makeClone(),false);
                 return;

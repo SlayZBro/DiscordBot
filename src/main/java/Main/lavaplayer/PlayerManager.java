@@ -58,6 +58,8 @@ public class PlayerManager {
                       .queue(message -> {
                             message.delete().queueAfter(2, TimeUnit.SECONDS);
                         });
+
+                System.out.println(musicManager.scheduler.queue.size());
             }
 
             @Override

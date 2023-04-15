@@ -38,7 +38,7 @@ public class MessageManager {
                     .setActionRow(getButtons(channel.getGuild(), track)).complete();
 
 
-            scheduler.scheduleAtFixedRate(new MessageThread(track), 0, 1, TimeUnit.SECONDS);
+            scheduler.scheduleAtFixedRate(new MessageThread(player), 0, 1, TimeUnit.SECONDS);
         }
 
     }

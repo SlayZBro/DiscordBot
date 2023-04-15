@@ -29,6 +29,7 @@ public class Pause extends ListenerAdapter {
             AudioPlayer player = PlayerManager.getInstance().getMusicManager(g).player;
             if (!player.isPaused()) {
                 player.setPaused(true);
+
                 MessageManager.scheduler.shutdown();
 
             }

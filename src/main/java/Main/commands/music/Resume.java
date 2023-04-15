@@ -35,7 +35,7 @@ public class Resume extends ListenerAdapter {
                 if(MessageManager.scheduler.isShutdown()){
                     MessageManager.scheduler = Executors.newScheduledThreadPool(1);
                 }
-                MessageManager.scheduler.scheduleAtFixedRate(new MessageThread(player.getPlayingTrack()), 0,1,TimeUnit.SECONDS);
+                MessageManager.scheduler.scheduleAtFixedRate(new MessageThread(player), 0,1,TimeUnit.SECONDS);
 
             }
         }
