@@ -2,7 +2,6 @@ package Main.commands.music;
 
 import Main.lavaplayer.GuildMusicManager;
 import Main.lavaplayer.PlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;

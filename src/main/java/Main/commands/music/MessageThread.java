@@ -1,7 +1,6 @@
 package Main.commands.music;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 public class MessageThread implements Runnable{
 

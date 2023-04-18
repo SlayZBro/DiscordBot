@@ -113,7 +113,7 @@ public class ButtonPressed extends ListenerAdapter {
 
 
         Modal modal = Modal.create("tluna", "פתיחת תלונה")
-                .addActionRows(ActionRow.of(name), ActionRow.of(target), ActionRow.of(body))
+                .addActionRow(name,target,body)
                 .build();
 
         event.replyModal(modal).queue();

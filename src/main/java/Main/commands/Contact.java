@@ -1,11 +1,7 @@
 package Main.commands;
 
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.components.ActionRow;
-import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import net.dv8tion.jda.api.interactions.components.selections.SelectMenu;
 import net.dv8tion.jda.api.interactions.components.text.TextInput;
 import net.dv8tion.jda.api.interactions.components.text.TextInputStyle;
 import net.dv8tion.jda.api.interactions.modals.Modal;
@@ -31,7 +27,7 @@ public class Contact extends ListenerAdapter {
                     .build();
 
             Modal modal = Modal.create("המפקד", "פנייה למפקד השרת")
-                    .addActionRows(ActionRow.of(email), ActionRow.of(body))
+                    .addActionRow(email,body)
                     .build();
 
             event.replyModal(modal).queue();

@@ -21,7 +21,6 @@ import net.dv8tion.jda.api.utils.Compression;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
-
 public class Bot {
     public static JDA jda;
 
@@ -32,12 +31,10 @@ public class Bot {
         builder.setBulkDeleteSplittingEnabled(false);
         builder.setCompression(Compression.NONE);
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
-        builder.enableIntents(GatewayIntent.GUILD_MEMBERS,GatewayIntent.MESSAGE_CONTENT);
+        builder.enableIntents(GatewayIntent.GUILD_MEMBERS,  GatewayIntent.GUILD_MESSAGES);
 
         builder.setActivity(Activity.playing("נודר נדר סימולציה"));
         jda = builder.build();
-
-
 
 
 
@@ -78,7 +75,8 @@ public class Bot {
        
 
 
-        System.out.println("Bot loaded");
+        System.out.println("Bot loaded.");
+
 
 
 
