@@ -3,6 +3,7 @@ package Main.events;
 import Main.commands.music.*;
 import Main.lavaplayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -14,6 +15,8 @@ import net.dv8tion.jda.api.interactions.components.text.TextInput;
 import net.dv8tion.jda.api.interactions.components.text.TextInputStyle;
 import net.dv8tion.jda.api.interactions.modals.Modal;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 
 public class ButtonPressed extends ListenerAdapter {
 
@@ -68,6 +71,18 @@ public class ButtonPressed extends ListenerAdapter {
                 return;
             }
 
+            else if(e.getButton().getId().equals("lyrics")){
+                try {
+
+                    EmbedBuilder builder = new EmbedBuilder();
+                    builder.setDescription(Lyrics.getLyrics(PlayerManager.getInstance().getMusicManager(e.getGuild()).player.getPlayingTrack().getInfo().title));
+                    e.replyEmbeds(builder.build()).queue();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                return;
+            }
+
         }
 
         if(e.getButton().getId().equals("queue")){
@@ -75,6 +90,7 @@ public class ButtonPressed extends ListenerAdapter {
 
             Queue.queue(e.getChannel().asTextChannel(), e.getHook());
         }
+
 
         else if(e.getButton().getId().equals("tluna")){
             modal(e);

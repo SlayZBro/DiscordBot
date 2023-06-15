@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PlayerManager {
 
-    public static PlayerManager instance;
+    private static PlayerManager instance;
 
     private final Map<Long,GuildMusicManager> musicManagers;
     private final AudioPlayerManager audioPlayerManager;
@@ -54,7 +54,6 @@ public class PlayerManager {
                             message.delete().queueAfter(2, TimeUnit.SECONDS);
                         });
 
-                System.out.println(musicManager.scheduler.queue.size());
             }
 
             @Override

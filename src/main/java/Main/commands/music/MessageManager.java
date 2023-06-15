@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -95,7 +96,8 @@ public class MessageManager {
         arrayList.add(Button.primary("queue", "Queue"));
         arrayList.add(Button.primary("repeat", " ").withEmoji(PlayerManager.getInstance().getMusicManager(g)
                 .scheduler.replay ? Emoji.fromUnicode("U+1F502") : Emoji.fromUnicode("U+1F501")));
-        arrayList.add(Button.link(track.getInfo().uri, " ").withEmoji(Emoji.fromCustom("YouTube",892003898733264947L,false)));
+        arrayList.add(Button.of(ButtonStyle.SUCCESS,"lyrics",Emoji.fromUnicode("U+1F3A4")));
+//        arrayList.add(Button.link(track.getInfo().uri, " ").withEmoji(Emoji.fromCustom("YouTube",892003898733264947L,false)));
 
         return arrayList;
     }

@@ -25,13 +25,13 @@ public class Bot {
     public static JDA jda;
 
     public static void main(String[] args) throws Exception {
-        JDABuilder builder = JDABuilder.createDefault(Token.TOKEN);
+        JDABuilder builder = JDABuilder.createDefault(Token.getToken());
 
         builder.disableCache(CacheFlag.MEMBER_OVERRIDES);
         builder.setBulkDeleteSplittingEnabled(false);
         builder.setCompression(Compression.NONE);
         builder.setMemberCachePolicy(MemberCachePolicy.ALL);
-        builder.enableIntents(GatewayIntent.GUILD_MEMBERS,  GatewayIntent.GUILD_MESSAGES);
+        builder.enableIntents(GatewayIntent.GUILD_MEMBERS,  GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT);
 
         builder.setActivity(Activity.playing("נודר נדר סימולציה"));
         jda = builder.build();

@@ -105,16 +105,16 @@ public class Play extends ListenerAdapter {
             return false;
         }
 
+        String ytSearch = null;
 
         if(!isUrl(input)){
-            String ytSearch = searchYoutube(input);
+            ytSearch = searchYoutube(input);
 
             if(ytSearch == null){
                 c.sendMessage("null").queue();
                 return false;
             }
 
-            input = ytSearch;
         }
 
 
@@ -125,7 +125,7 @@ public class Play extends ListenerAdapter {
 
 
 
-        PlayerManager.getInstance().loadAndPlay(c,input);
+        PlayerManager.getInstance().loadAndPlay(c,ytSearch);
         PlayerManager.getInstance().getMusicManager(g).player.setVolume(60);
         return true;
     }

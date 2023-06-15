@@ -11,6 +11,8 @@ import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.managers.AudioManager;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -19,6 +21,7 @@ public class TrackScheduler extends AudioEventAdapter {
     private final AudioPlayer player;
     public final BlockingQueue<AudioTrack> queue;
     public boolean replay = false;
+
 
     public TrackScheduler(AudioPlayer player){
         this.player = player;
@@ -29,6 +32,7 @@ public class TrackScheduler extends AudioEventAdapter {
         if(!player.startTrack(track,true)){
             this.queue.offer(track);
         }
+
     }
 
     public void nextTrack(AudioManager manager){
@@ -48,6 +52,7 @@ public class TrackScheduler extends AudioEventAdapter {
         }
 
         this.player.startTrack(this.queue.poll(),false);
+
 
         if(textChannel != null){
             MessageManager.message = textChannel.sendMessage("Now Playing: `" + player.getPlayingTrack().getInfo().title + "`")
