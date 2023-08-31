@@ -9,7 +9,9 @@ public class Lyrics {
 
 
     public static String getLyrics(String songName) throws IOException {
-        return new GLA().search(removeContentInBrackets(songName)).getHits().getFirst().fetchLyrics();
+        songName = removeContentInBrackets(songName);
+        System.out.println("searching lyrics for "+songName);
+        return new GLA().search(songName).getHits().getFirst().fetchLyrics();
     }
 
     public static String removeContentInBrackets(String input) {

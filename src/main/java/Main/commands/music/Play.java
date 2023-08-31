@@ -79,7 +79,7 @@ public class Play extends ListenerAdapter {
 
 
                 if(MessageManager.message == null) {
-                    e.deferReply().queue();
+//                    e.deferReply().queue();
                     e.getHook().deleteOriginal().queue();
 
                     AudioPlayer player = PlayerManager.getInstance().getMusicManager(e.getGuild()).player;

@@ -78,7 +78,7 @@ public class ButtonPressed extends ListenerAdapter {
                     builder.setDescription(Lyrics.getLyrics(PlayerManager.getInstance().getMusicManager(e.getGuild()).player.getPlayingTrack().getInfo().title));
                     e.replyEmbeds(builder.build()).queue();
                 } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+                    e.reply("Sorry, I couldn't find lyrics to this song").setEphemeral(true).queue();
                 }
                 return;
             }
